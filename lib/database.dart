@@ -7,7 +7,7 @@ class AppDatabase {
     static final AppDatabase _instance = AppDatabase._internal();
     static Database? _database;
         
-    //inisialisasi beberapa variabel yang dibutuhkan
+    //variable
     final String tableName = 'theTable';
     final String colId = 'id';
     final String colOwnername = 'ownerName';
@@ -35,7 +35,7 @@ class AppDatabase {
         return await openDatabase(path, version: 1, onCreate: _onCreate);
     }
         
-    //mmaking the table and field
+    //making the table and field
     Future<void> _onCreate(Database db, int version) async {
         var sql = "CREATE TABLE $tableName($colId INTEGER PRIMARY KEY, "
             "$colOwnername TEXT,"
@@ -52,7 +52,7 @@ class AppDatabase {
         return await dbClient!.insert(tableName, owner.toMap());
     }
         
-    //read the database/ query
+    //read the database/query
     Future<List?> getOwner() async {
         var dbClient = await _db;
         var result = await dbClient!.query(tableName, columns: [

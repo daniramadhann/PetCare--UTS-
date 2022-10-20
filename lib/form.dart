@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:utscrud/owner.dart';
-import 'database.dart';
 import 'owner.dart';
+import 'database.dart';
+
 
 class OwnerForm extends StatefulWidget {
   final Ownerdata? owner;
@@ -162,9 +163,41 @@ class OwnerFormState extends State<OwnerForm> {
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0),
-                          side: BorderSide(color: Colors.red)))),
+                          side: BorderSide(color: Colors.green)))),
               onPressed: () {
-                updateOwner();
+                if (petName!.text.isEmpty ||
+                    ownerName!.text.isEmpty ||
+                    address!.text.isEmpty ||
+                    phoneNum!.text.isEmpty ||
+                    services!.text.isEmpty) {
+                  showalertblankForm(BuildContext context) {
+                    // pop up for confirmation 
+                    Widget okButton = TextButton(
+                      child: Text("OK"),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    );
+                    // alert when the form is blank
+                    AlertDialog blankAlert = AlertDialog(
+                      title: Text("ALERT!"),
+                      content: Text("Please fill all the blank form."),
+                      actions: [
+                        okButton,
+                      ],
+                    );
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return blankAlert;
+                      },
+                    );
+                  }
+
+                  showalertblankForm(context);
+                } else {
+                  updateOwner();
+                }
               },
             ),
           )
